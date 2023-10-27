@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # Django Allauth
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
     
     # Django SSL Server
     "sslserver",
