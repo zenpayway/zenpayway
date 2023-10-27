@@ -6,13 +6,12 @@ from django.core.validators import MinValueValidator
 
 class User(AbstractUser):
     STATUS = (
-        ("Administrator", "Administrator"),
         ("Company", "Company"),
         ("Client", "Client")
     )
     
     id = models.UUIDField(primary_key=True, default=uuid4(), editable=False)
-    status = models.CharField(max_length=13, choices=STATUS)
+    status = models.CharField(max_length=7, choices=STATUS)
     pass
 
     def __str__(self) -> str:
