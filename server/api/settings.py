@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "sslserver",
     
     # Local applications
+    "company",
 ]
 
 MIDDLEWARE = [
