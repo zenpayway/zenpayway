@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+python-dotenv = "*"
+djangorestframework = "*"
+django-cors-headers = "*"
+dj-rest-auth = "*"
+django-allauth = "*"
+django-sslserver = "*"
+djangorestframework-simplejwt = "*"
+dj-database-url = "*"
+psycopg2-binary = "*"
+gunicorn = "*"
+whitenoise = {extras = ["brotli"], version = "*"}
+stripe = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
+python_full_version = "3.11.5"
