@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # Local applications
     "company",
     "service",
+    "purchase",
 ]
 
 MIDDLEWARE = [
