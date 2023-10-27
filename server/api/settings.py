@@ -19,8 +19,6 @@ RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-AUTH_USER_MODEL = "zenpayway.User"
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -49,7 +47,6 @@ INSTALLED_APPS = [
     "sslserver",
     
     # Local applications
-    "zenpayway",
 ]
 
 MIDDLEWARE = [
