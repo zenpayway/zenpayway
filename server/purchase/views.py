@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from .models import *
+from .serializers import *
+from .permissions import *
 
-# Create your views here.
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
+
+class PurchaseViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwner]
+    queryset = Purchase.objects.all()
+    serializer_class = PurchaseSerializer
