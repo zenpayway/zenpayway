@@ -7,6 +7,7 @@ import Register from "./Auth/Register";
 import Logout from "./Auth/Logout";
 import Companies from "./Companies/Companies";
 import Company from "./Companies/Company";
+import RegistrationSuccess from './Shared/RegistrationSuccess'
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/logout" element={<Logout />} />
           <Route path="/companies" element={<Companies />} />
           <Route path="/companies/:id" element={<Company />} />
+          <Route path="/registration-success" element={<RegistrationSuccess />} />
         </Routes>
       </div>
     </div>
