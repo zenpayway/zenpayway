@@ -106,7 +106,35 @@ const Service: React.FC = () => {
     } catch (error) {
       console.error("Error deleting service:", error);
     }
-  };  
+  };
+
+  const handlePayment = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+
+      if (serviceDetail) {
+        const paymentData = {
+          user: sessionStorage.getItem("pk"),
+          service: serviceDetail.id,
+          company: serviceDetail.company
+        };
+
+        const response = await axios.post(
+          "https://zenpayway-api.onrender.com/purchases/",
+          paymentData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        console.log("Payment successful:", response.data);
+      }
+    } catch (error) {
+      console.error("Error processing payment:", error);
+    }
+  };
 
   return (
     <Container className="mt-5">
@@ -114,6 +142,9 @@ const Service: React.FC = () => {
         <h1>Service Details</h1>
         {String(serviceDetail?.user) === sessionStorage.getItem("pk") && (
           <div className="d-flex gap-2">
+          <Button variant="warning" onClick={handlePayment}>
+            <i className="fa fa-shopping-cart" aria-hidden="true"></i>
+          </Button>
             <Button variant="primary" onClick={handleEditClick}>
               <i className="fa fa-cogs" aria-hidden="true"></i>
             </Button>
