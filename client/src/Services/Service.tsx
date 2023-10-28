@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { Container, Card, Button, Modal, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
@@ -28,6 +29,7 @@ const Service: React.FC = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [editedService, setEditedService] = useState<ServiceDetail | null>(null);
+  const navigate = useNavigate();
 
   const fetchServiceData = async () => {
     try {
@@ -104,8 +106,10 @@ const Service: React.FC = () => {
             },
           }
         );
+
+        console.log(response);
   
-        fetchServiceData();
+        navigate("/services");
   
         setShowDeleteModal(false);
       }
@@ -120,9 +124,6 @@ const Service: React.FC = () => {
         <h1>Service Details</h1>
         {String(serviceDetail?.user) === sessionStorage.getItem("pk") && (
           <div className="d-flex gap-2">
-            <Button variant="success">
-              <i className="fa fa-plus" aria-hidden="true"></i>
-            </Button>
             <Button variant="primary" onClick={handleEditClick}>
               <i className="fa fa-cogs" aria-hidden="true"></i>
             </Button>
