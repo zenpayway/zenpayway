@@ -144,19 +144,21 @@ const Service: React.FC = () => {
     <Container className="mt-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>Service Details</h1>
-        {String(serviceDetail?.user) === sessionStorage.getItem("pk") && (
           <div className="d-flex gap-2">
-          <Button variant="warning" onClick={handlePayment}>
-            <i className="fa fa-shopping-cart" aria-hidden="true"></i>
-          </Button>
-            <Button variant="primary" onClick={handleEditClick}>
-              <i className="fa fa-cogs" aria-hidden="true"></i>
+            <Button variant="warning" onClick={handlePayment}>
+              <i className="fa fa-shopping-cart" aria-hidden="true"></i>
             </Button>
-            <Button variant="danger" onClick={handleDeleteClick}>
-              <i className="fa fa-trash" aria-hidden="true"></i>
-            </Button>
+            {String(serviceDetail?.user) === sessionStorage.getItem("pk") && (
+              <>
+                <Button variant="primary" onClick={handleEditClick}>
+                  <i className="fa fa-cogs" aria-hidden="true"></i>
+                </Button>
+                <Button variant="danger" onClick={handleDeleteClick}>
+                  <i className="fa fa-trash" aria-hidden="true"></i>
+                </Button>
+              </>
+            )}
           </div>
-        )}
       </div>
       {serviceDetail && (
         <Card>
