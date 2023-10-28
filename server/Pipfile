@@ -17,6 +17,7 @@ psycopg2-binary = "*"
 gunicorn = "*"
 whitenoise = {extras = ["brotli"], version = "*"}
 stripe = "*"
+django-filter = "*"
 
 [dev-packages]
 

@@ -6,5 +6,5 @@ router = routers.DefaultRouter()
 router.register("", CompanyViewSet, "companies")
 
 urlpatterns = [
-    path("", include(router.urls))
+    path("", include(router.urls)),
 ]

@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     
     # Django SSL Server
     "sslserver",
+
+    # Django Filters
+    "django_filters",
     
     # Local applications
     "company",

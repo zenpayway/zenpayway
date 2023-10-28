@@ -6,4 +6,4 @@ class CompanySerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Company
-        exclude = ("user",)
+        fields = "__all__"
