@@ -10,6 +10,7 @@ import Company from "./Companies/Company";
 import RegistrationSuccess from './Shared/RegistrationSuccess'
 import Services from "./Services/Services";
 import Service from "./Services/Service";
+import EmailConfirmed from "./Shared/EmailConfirmed";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/registration-success" element={<RegistrationSuccess />} />
           <Route path="/services" element={<Services />} />
           <Route path="/services/:id" element={<Service />} />
+          <Route path="/email-verified" element={<EmailConfirmed />} />
         </Routes>
       </div>
     </div>
