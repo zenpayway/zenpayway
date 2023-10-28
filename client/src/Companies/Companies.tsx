@@ -169,7 +169,7 @@ const Companies = () => {
           companies.map((company) => (
             <li key={company.id} className="list-group-item d-flex justify-content-between align-items-center">
               <Link to={`/companies/${company.id}`}>{company.title}</Link>
-              {company.user == sessionStorage.getItem("pk") && (
+              {String(company.user) === sessionStorage.getItem("pk") && (
                 <div className="d-flex gap-2">
                   <Button variant="primary" size="sm" onClick={() => handleEditClick(company)}>
                     <i className="fa fa-cogs" aria-hidden="true"></i>

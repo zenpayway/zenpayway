@@ -8,6 +8,8 @@ import Logout from "./Auth/Logout";
 import Companies from "./Companies/Companies";
 import Company from "./Companies/Company";
 import RegistrationSuccess from './Shared/RegistrationSuccess'
+import Services from "./Services/Services";
+import Service from "./Services/Service";
 
 const App = () => {
   return (
@@ -22,6 +24,8 @@ const App = () => {
           <Route path="/companies" element={<Companies />} />
           <Route path="/companies/:id" element={<Company />} />
           <Route path="/registration-success" element={<RegistrationSuccess />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/services/:id" element={<Service />} />
         </Routes>
       </div>
     </div>
