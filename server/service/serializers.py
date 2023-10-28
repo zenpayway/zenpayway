@@ -10,4 +10,4 @@ class ServiceSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Service
-        exclude = ("user",)
+        fields = "__all__"
