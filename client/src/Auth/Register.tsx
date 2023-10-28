@@ -20,10 +20,26 @@ const Register = () => {
       });
       const message = response.data.detail;
       console.log(message);
-      
+
       navigate("/");
-    } catch (error) {
-      setError("Registration failed. Please check your information and try again.");
+    } catch (error : any) {
+      if (error && error.response && error.response.data) {
+        let errorDetails = error.response.data;
+        // Print out the 'data' object as a string
+        if (errorDetails.password1) {
+          setError(errorDetails.password1[0]);
+        }
+        else if (errorDetails.email) {
+          setError(errorDetails.email[0]);
+        }
+        else {
+          setError("Registration failed. Please check your information and try again.");
+        }
+      }
+      else {
+        setError("Registration failed. Please check your information and try again.");
+      }
+      
     }
   };
 
