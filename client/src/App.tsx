@@ -5,6 +5,8 @@ import Home from "./Shared/Home";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import Logout from "./Auth/Logout";
+import Companies from "./Companies/Companies";
+import Company from "./Companies/Company";
 
 const App = () => {
   return (
@@ -16,6 +18,8 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/companies" element={<Companies />} />
+          <Route path="/companies/:id" element={<Company />} />
         </Routes>
       </div>
     </div>

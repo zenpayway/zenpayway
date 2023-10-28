@@ -1,21 +1,12 @@
-from .models import *
-from .serializers import *
-from .permissions import *
-
+from .models import Company
+from .serializers import CompanySerializer
+from .permissions import IsOwnerOrReadOnly
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-
 
 class CompanyViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwner]
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
-
-    def perform_update(self, serializer):
-        serializer.save(user=self.get_object().user)
-
-    def perform_destroy(self, instance):
-        instance.delete()
