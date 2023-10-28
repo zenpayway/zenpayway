@@ -20,8 +20,20 @@ const Login = () => {
       const pk = response.data.user.pk
       sessionStorage.setItem("pk", pk);
       navigate("/");
-    } catch (error) {
-      setError("Login failed. Please check your email and password.");
+    } catch (error : any) {
+        if (error && error.response && error.response.data) {
+            let errorDetails = error.response.data;
+            console.log(errorDetails);
+            if (errorDetails.non_field_errors) {
+              setError(errorDetails.non_field_errors[0]);
+            }
+            else {
+              setError("Login failed. Please check your email and password.");
+            }
+        }
+        else {
+          setError("Login failed. Please check your email and password.");
+        }
     }
   };
 
