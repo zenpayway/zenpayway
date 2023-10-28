@@ -57,7 +57,7 @@ const Navigation = () => {
                     Services
                   </Nav.Link>
                   <Nav.Link as={Link} to="/companies">
-                    My Companies
+                    Companies
                   </Nav.Link>
                   <Nav.Link onClick={handleLogout}>
                     Logout

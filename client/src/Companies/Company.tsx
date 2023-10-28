@@ -27,7 +27,6 @@ const Company: React.FC = () => {
         }
       );
       setCompanyData(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching company data:", error);
     }
@@ -43,7 +42,9 @@ const Company: React.FC = () => {
       {companyData && (
         <Card>
           <Card.Body>
-            <Card.Title>{companyData.title}</Card.Title>
+            <Card.Text>
+              <strong>Title:</strong> {companyData.title}
+            </Card.Text>
             <Card.Text>
               <strong>Email:</strong> {companyData.email}
             </Card.Text>
