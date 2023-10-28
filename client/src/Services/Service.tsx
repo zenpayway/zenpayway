@@ -90,7 +90,7 @@ const Service: React.FC = () => {
     try {
       const token = sessionStorage.getItem("token");
       if (serviceDetail) {
-         await axios.delete( // const response = ...
+         await axios.delete(
           `https://zenpayway-api.onrender.com/services/${serviceDetail.id}/`,
           {
             headers: {
@@ -98,8 +98,6 @@ const Service: React.FC = () => {
             },
           }
         );
-
-        console.log(response);
   
         navigate("/services");
   
