@@ -114,7 +114,7 @@ const Service: React.FC = () => {
   
       if (serviceDetail) {
         const paymentData = {
-          user: sessionStorage.getItem("pk"),
+          user: Number(sessionStorage.getItem("pk")),
           service: serviceDetail.id,
           company: serviceDetail.company,
         };
