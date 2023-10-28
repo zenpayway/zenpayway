@@ -111,14 +111,14 @@ const Service: React.FC = () => {
   const handlePayment = async () => {
     try {
       const token = sessionStorage.getItem("token");
-
+  
       if (serviceDetail) {
         const paymentData = {
           user: sessionStorage.getItem("pk"),
           service: serviceDetail.id,
-          company: serviceDetail.company
+          company: serviceDetail.company,
         };
-
+  
         const response = await axios.post(
           "https://zenpayway-api.onrender.com/purchases/",
           paymentData,
@@ -128,8 +128,12 @@ const Service: React.FC = () => {
             },
           }
         );
-
+  
         console.log("Payment successful:", response.data);
+  
+        if (response.data.url) {
+          window.open(response.data.url, "_blank");
+        }
       }
     } catch (error) {
       console.error("Error processing payment:", error);
