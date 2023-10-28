@@ -129,9 +129,6 @@ const Services = () => {
                   <Link to={`/services/${service.id}`}>{service.title}</Link>
                 </div>
                 <div className="col-sm-4">
-                  <Link to={`/companies/${service.company.id}`}>{service.company.title}</Link>
-                </div>
-                <div className="col-sm-4">
                   {service.price} BGN
                 </div>
               </div>

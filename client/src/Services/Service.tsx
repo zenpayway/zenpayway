@@ -4,14 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { Container, Card, Button, Modal, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
-interface Company {
-  id: number;
-  created: string;
-  updated: string;
-  title: string;
-  email: string;
-}
-
 interface ServiceDetail {
   id: string;
   created: string;
@@ -19,7 +11,7 @@ interface ServiceDetail {
   title: string;
   description: string;
   user: number;
-  company: Company;
+  company: number;
   price: string;
 }
 
@@ -141,9 +133,6 @@ const Service: React.FC = () => {
             </Card.Text>
             <Card.Text>
               <strong>Description:</strong> {serviceDetail.description ? serviceDetail.description : "No description provided yet ..."}
-            </Card.Text>
-            <Card.Text>
-              <strong>Company:</strong> {serviceDetail.company.title}
             </Card.Text>
             <Card.Text>
               <strong>Price:</strong> {serviceDetail.price} BGN

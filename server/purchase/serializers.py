@@ -7,9 +7,7 @@ from rest_framework import serializers
 
 
 class PurchaseSerializer(serializers.ModelSerializer):
-    company = CompanySerializer()
-    service = ServiceSerializer()
     
     class Meta:
         model = Purchase
-        exclude = ("user",)
+        fields = "__all__"
