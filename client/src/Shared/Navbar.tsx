@@ -53,11 +53,11 @@ const Navigation = () => {
               )}
               {token && (
                 <>
-                  <Nav.Link as={Link} to="/companies">
-                    Companies
-                  </Nav.Link>
                   <Nav.Link as={Link} to="/services">
                     Services
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/companies">
+                    My Companies
                   </Nav.Link>
                   <Nav.Link onClick={handleLogout}>
                     Logout

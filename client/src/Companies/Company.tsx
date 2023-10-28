@@ -12,23 +12,22 @@ interface CompanyData {
 }
 
 const Company: React.FC = () => {
-  const { id } = useParams<{ id: string }>();     
+  const { id } = useParams<{ id: string }>();
   const [companyData, setCompanyData] = useState<CompanyData | null>(null);
 
   const fetchCompanyData = async () => {
     try {
       const token = sessionStorage.getItem("token");
-      const response = await axios.get<{ result: CompanyData[] }>(
-          `https://zenpayway-api.onrender.com/companies/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-      setCompanyData(response.data.result);
-      console.log(response);
-      
+      const response = await axios.get<CompanyData>(
+        `https://zenpayway-api.onrender.com/companies/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setCompanyData(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error("Error fetching company data:", error);
     }
