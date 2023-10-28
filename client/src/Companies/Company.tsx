@@ -19,7 +19,7 @@ const Company: React.FC = () => {
     try {
       const token = sessionStorage.getItem("token");
       const response = await axios.get<CompanyData>(
-        `https://zenpayway-api.onrender.com/companies/${id}`,
+        `https://zenpayway-api.onrender.com/companies/${id}/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
