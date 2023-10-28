@@ -11,6 +11,8 @@ import RegistrationSuccess from './Shared/RegistrationSuccess'
 import Services from "./Services/Services";
 import Service from "./Services/Service";
 import EmailConfirmed from "./Shared/EmailConfirmed";
+import PaymentSuccessful from "./Shared/PaymentSuccessful";
+import PaymentUnsuccessful from "./Shared/PaymentUnsuccessful";
 
 const App = () => {
   return (
@@ -28,6 +30,8 @@ const App = () => {
           <Route path="/services" element={<Services />} />
           <Route path="/services/:id" element={<Service />} />
           <Route path="/email-verified" element={<EmailConfirmed />} />
+          <Route path="/payment-successful" element={<PaymentSuccessful />} />
+          <Route path="/payment-unsuccessful" element={<PaymentUnsuccessful />} />
         </Routes>
       </div>
     </div>
