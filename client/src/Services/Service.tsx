@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Card } from "react-bootstrap";
+import { Container, Card, Button, Modal, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 interface Company {
@@ -19,18 +19,21 @@ interface ServiceDetail {
   description: string;
   user: number;
   company: Company;
-  price: number;
+  price: string;
 }
 
 const Service: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [serviceDetail, setServiceDetail] = useState<ServiceDetail | null>(null);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [editedService, setEditedService] = useState<ServiceDetail | null>(null);
 
-  const fetchCompanyData = async () => {
+  const fetchServiceData = async () => {
     try {
       const token = sessionStorage.getItem("token");
       const response = await axios.get<ServiceDetail>(
-        `https://zenpayway-api.onrender.com/services/${id}`,
+        `https://127.0.0.1:8000/services/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -44,12 +47,91 @@ const Service: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchCompanyData();
+    fetchServiceData();
   }, [id]);
+
+  const handleEditClick = () => {
+    setShowEditModal(true);
+    setEditedService(serviceDetail);
+  };
+
+  const handleEditClose = () => {
+    setShowEditModal(false);
+    setEditedService(null);
+  };
+
+  const handleEditSave = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      if (editedService) {
+        const response = await axios.put(
+          `https://127.0.0.1:8000/services/${editedService.id}`,
+          editedService,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response);
+        
+        fetchServiceData();
+
+        setShowEditModal(false);
+      }
+    } catch (error) {
+      console.error("Error updating service:", error);
+    }
+  };
+
+  const handleDeleteClick = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteClose = () => {
+    setShowDeleteModal(false);
+  };
+
+  const handleDelete = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      if (serviceDetail) {
+        const response = await axios.delete(
+          `https://127.0.0.1:8000/services/${serviceDetail.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+  
+        fetchServiceData();
+  
+        setShowDeleteModal(false);
+      }
+    } catch (error) {
+      console.error("Error deleting service:", error);
+    }
+  };  
 
   return (
     <Container className="mt-5">
-      <h1 className="mb-4">Service Details</h1>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h1>Service Details</h1>
+        {String(serviceDetail?.user) === sessionStorage.getItem("pk") && (
+          <div className="d-flex gap-2">
+            <Button variant="success">
+              <i className="fa fa-plus" aria-hidden="true"></i>
+            </Button>
+            <Button variant="primary" onClick={handleEditClick}>
+              <i className="fa fa-cogs" aria-hidden="true"></i>
+            </Button>
+            <Button variant="danger" onClick={handleDeleteClick}>
+              <i className="fa fa-trash" aria-hidden="true"></i>
+            </Button>
+          </div>
+        )}
+      </div>
       {serviceDetail && (
         <Card>
           <Card.Body>
@@ -75,6 +157,67 @@ const Service: React.FC = () => {
         </Card>
       )}
       {!serviceDetail && <p>Loading company data...</p>}
+      <Modal show={showEditModal} onHide={handleEditClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Service</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="formTitle">
+              <Form.Label>Title</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter title"
+                value={editedService?.title || ""}
+                onChange={(e) => setEditedService({ ...editedService, title: e.target.value } as ServiceDetail)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formDescription">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter description"
+                value={editedService?.description || ""}
+                onChange={(e) => setEditedService({ ...editedService, description: e.target.value } as ServiceDetail)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formPrice">
+              <Form.Label>Price</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Enter price"
+                value={editedService?.price || ""}
+                onChange={(e) => setEditedService({ ...editedService, price: e.target.value } as ServiceDetail)}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleEditClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleEditSave}>
+            Save
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={showDeleteModal} onHide={handleDeleteClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Deletion</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete the service:{" "}
+          {serviceDetail ? serviceDetail.title : ""}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleDeleteClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };
