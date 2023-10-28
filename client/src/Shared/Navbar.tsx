@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Navbar, Nav, Modal, Button } from "react-bootstrap";
+import { Navbar, Nav, Modal, Button, Form } from "react-bootstrap";
+import axios from "axios";
 
 const Navigation = () => {
   const token = sessionStorage.getItem("token");
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -15,6 +17,32 @@ const Navigation = () => {
     sessionStorage.removeItem("token");
     setShowConfirmation(false);
     navigate("/login");
+  };
+
+  const handleSearch = async () => {
+    if (search.trim() !== "") {
+      try {
+        const response = await axios.get(
+          `https://zenpayway-api.onrender.com/companies/?search=${search}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response);
+        
+        if (response.data.results.length > 0) {
+          // If one or more companies are found, redirect to the first one
+          navigate(`/companies/${response.data.results[0].id}`);
+        } else {
+          // If no companies are found, return to the home page
+          navigate("/");
+        }
+      } catch (error) {
+        console.error("Error searching:", error);
+      }
+    }
   };
 
   return (
@@ -62,6 +90,21 @@ const Navigation = () => {
                   <Nav.Link onClick={handleLogout}>
                     Logout
                   </Nav.Link>
+                  <Form className="d-flex">
+                    <Form.Control
+                      type="text"
+                      placeholder="Search"
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+                    <Button
+                      variant="primary"
+                      onClick={handleSearch}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      Search
+                    </Button>
+                  </Form>
                 </>
               )}
             </Nav>

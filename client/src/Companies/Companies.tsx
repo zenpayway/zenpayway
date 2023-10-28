@@ -9,6 +9,7 @@ interface Company {
   updated: string;
   title: string;
   email: string;
+  user: number;
 }
 
 const Companies = () => {
@@ -18,7 +19,7 @@ const Companies = () => {
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [editedCompany, setEditedCompany] = useState<Company | null>(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [newCompany, setNewCompany] = useState({ title: "", email: "" });
+  const [newCompany, setNewCompany] = useState({ title: "", email: "", user: sessionStorage.getItem("pk") });
 
   const fetchCompanies = async () => {
     try {
@@ -168,14 +169,16 @@ const Companies = () => {
           companies.map((company) => (
             <li key={company.id} className="list-group-item d-flex justify-content-between align-items-center">
               <Link to={`/companies/${company.id}`}>{company.title}</Link>
-              <div className="d-flex gap-2">
-                <Button variant="primary" size="sm" onClick={() => handleEditClick(company)}>
-                  <i className="fa fa-cogs" aria-hidden="true"></i>
-                </Button>
-                <Button variant="danger" size="sm" onClick={() => handleDeleteClick(company)}>
-                  <i className="fa fa-trash" aria-hidden="true"></i>
-                </Button>
-              </div>
+              {company.user == sessionStorage.getItem("pk") && (
+                <div className="d-flex gap-2">
+                  <Button variant="primary" size="sm" onClick={() => handleEditClick(company)}>
+                    <i className="fa fa-cogs" aria-hidden="true"></i>
+                  </Button>
+                  <Button variant="danger" size="sm" onClick={() => handleDeleteClick(company)}>
+                    <i className="fa fa-trash" aria-hidden="true"></i>
+                  </Button>
+                </div>
+              )}
             </li>
           ))
         ) : (

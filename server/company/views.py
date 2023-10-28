@@ -6,12 +6,10 @@ from rest_framework.permissions import IsAuthenticated
 
 class CompanyViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    queryset = Company.objects.all()
     serializer_class = CompanySerializer
     filter_backends = [filters.SearchFilter] 
     search_fields = ["title", "email"]
-    
-    def get_queryset(self):
-        return Company.objects.filter(user=self.request.user)
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

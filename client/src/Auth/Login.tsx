@@ -14,8 +14,11 @@ const Login = () => {
         email,
         password,
       });
-      const token = response.data.access;      
+      const token = response.data.access;
       sessionStorage.setItem("token", token);
+
+      const pk = response.data.user.pk
+      sessionStorage.setItem("pk", pk);
       navigate("/");
     } catch (error) {
       setError("Login failed. Please check your email and password.");
