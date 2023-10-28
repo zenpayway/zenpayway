@@ -21,7 +21,7 @@ const Register = () => {
       const message = response.data.detail;
       console.log(message);
 
-      navigate("/");
+      navigate("/registration-success");
     } catch (error : any) {
       if (error && error.response && error.response.data) {
         let errorDetails = error.response.data;
