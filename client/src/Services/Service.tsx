@@ -33,7 +33,7 @@ const Service: React.FC = () => {
     try {
       const token = sessionStorage.getItem("token");
       const response = await axios.get<ServiceDetail>(
-        `https://127.0.0.1:8000/services/${id}`,
+        `https://zenpayway-api.onrender.com/services/${id}/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -65,7 +65,7 @@ const Service: React.FC = () => {
       const token = sessionStorage.getItem("token");
       if (editedService) {
         const response = await axios.put(
-          `https://127.0.0.1:8000/services/${editedService.id}`,
+          `https://zenpayway-api.onrender.com/services/${editedService.id}/`,
           editedService,
           {
             headers: {
@@ -97,7 +97,7 @@ const Service: React.FC = () => {
       const token = sessionStorage.getItem("token");
       if (serviceDetail) {
         const response = await axios.delete(
-          `https://127.0.0.1:8000/services/${serviceDetail.id}`,
+          `https://zenpayway-api.onrender.com/services/${serviceDetail.id}/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
