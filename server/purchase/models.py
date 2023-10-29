@@ -13,7 +13,7 @@ class Purchase(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     company = models.ForeignKey(to=Company, on_delete=models.CASCADE)
     service = models.ForeignKey(to=Service, on_delete=models.CASCADE)
-    url = models.URLField(max_length=127, null=True, blank=True)
+    url = models.URLField(max_length=2000, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, editable=False)
     updated = models.DateTimeField(auto_now=True, editable=False)
     
