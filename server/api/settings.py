@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
-DEBUG = True # "RENDER" not in os.environ
+DEBUG = "RENDER" not in os.environ
 
 ALLOWED_HOSTS = ["127.0.0.1", "zenpayway-api.onrender.com"]
 
@@ -154,7 +154,7 @@ PostgreSQL = {
     )
 }
 
-DATABASES = PostgreSQL
+DATABASES = PostgreSQL if not DEBUG else SQLite
 
 AUTH_PASSWORD_VALIDATORS = [
     {
