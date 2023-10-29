@@ -154,7 +154,7 @@ PostgreSQL = {
     )
 }
 
-DATABASES = PostgreSQL if not DEBUG else SQLite
+DATABASES = PostgreSQL
 
 AUTH_PASSWORD_VALIDATORS = [
     {
