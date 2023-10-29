@@ -78,7 +78,7 @@ const Companies = () => {
       const token = sessionStorage.getItem("token");
       if (editedCompany) {
         const response = await axios.put(
-          `https://zenpayway-api.onrender.com/companies/${editedCompany.id}`,
+          `https://zenpayway-api.onrender.com/companies/${editedCompany.id}/`,
           editedCompany,
           {
             headers: {
@@ -109,7 +109,7 @@ const Companies = () => {
       const token = sessionStorage.getItem("token");
       if (selectedCompany) {
         const response = await axios.delete(
-          `https://zenpayway-api.onrender.com/companies/${selectedCompany.id}`,
+          `https://zenpayway-api.onrender.com/companies/${selectedCompany.id}/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

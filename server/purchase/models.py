@@ -25,7 +25,7 @@ class Purchase(models.Model):
         verbose_name_plural = "Purchases"
         
     def save(self, *args, **kwargs):
-        self.url = stripe.checkout.Session.create(
+        url = stripe.checkout.Session.create(
             line_items=[
                 {
                     "price_data": {
@@ -42,4 +42,6 @@ class Purchase(models.Model):
             success_url=os.environ.get("SUCCESS_URL"),
             cancel_url=os.environ.get("CANCEL_URL")
         ).url
+        print(url)
+        self.url = url
         super().save(*args, **kwargs)

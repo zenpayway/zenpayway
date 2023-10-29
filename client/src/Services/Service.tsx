@@ -106,22 +106,59 @@ const Service: React.FC = () => {
     } catch (error) {
       console.error("Error deleting service:", error);
     }
-  };  
+  };
+
+  const handlePayment = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+  
+      if (serviceDetail) {
+        const paymentData = {
+          user: Number(sessionStorage.getItem("pk")),
+          service: serviceDetail.id,
+          company: serviceDetail.company,
+        };
+  
+        const response = await axios.post(
+          "https://zenpayway-api.onrender.com/purchases/",
+          paymentData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+  
+        console.log("Payment successful:", response.data);
+  
+        if (response.data.url) {
+          window.open(response.data.url, "_blank");
+        }
+      }
+    } catch (error) {
+      console.error("Error processing payment:", error);
+    }
+  };
 
   return (
     <Container className="mt-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>Service Details</h1>
-        {String(serviceDetail?.user) === sessionStorage.getItem("pk") && (
           <div className="d-flex gap-2">
-            <Button variant="primary" onClick={handleEditClick}>
-              <i className="fa fa-cogs" aria-hidden="true"></i>
+            <Button variant="warning" onClick={handlePayment}>
+              <i className="fa fa-shopping-cart" aria-hidden="true"></i>
             </Button>
-            <Button variant="danger" onClick={handleDeleteClick}>
-              <i className="fa fa-trash" aria-hidden="true"></i>
-            </Button>
+            {String(serviceDetail?.user) === sessionStorage.getItem("pk") && (
+              <>
+                <Button variant="primary" onClick={handleEditClick}>
+                  <i className="fa fa-cogs" aria-hidden="true"></i>
+                </Button>
+                <Button variant="danger" onClick={handleDeleteClick}>
+                  <i className="fa fa-trash" aria-hidden="true"></i>
+                </Button>
+              </>
+            )}
           </div>
-        )}
       </div>
       {serviceDetail && (
         <Card>
